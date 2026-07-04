@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia da Lei nº 15.211/2025 — Estatuto Digital da Criança e do Adolescente</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f4f8;
+    --sidebar-bg: #0f2137;
+    --sidebar-text: #a8c4d8;
+    --sidebar-active-bg: rgba(0,188,180,0.12);
+    --sidebar-active-color: #00bcb4;
+    --sidebar-hover: #162d45;
+    --accent: #00bcb4;
+    --accent2: #ff6b35;
+    --accent3: #7c3aed;
+    --text: #111827;
+    --text-light: #4b5563;
+    --card-bg: #ffffff;
+    --law-bg: #f0fbfb;
+    --law-border: #00bcb4;
+    --tip-bg: #f0fdf4;
+    --tip-border: #16a34a;
+    --warn-bg: #fffbeb;
+    --warn-border: #d97706;
+    --danger-bg: #fff1f2;
+    --danger-border: #e11d48;
+    --info-bg: #eff6ff;
+    --info-border: #2563eb;
+    --purple-bg: #faf5ff;
+    --purple-border: #7c3aed;
+    --sidebar-width: 275px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
+  }
+
+  .sidebar-header {
+    padding: 26px 20px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    background: linear-gradient(135deg, #0f2137 0%, #0d3354 100%);
+  }
+
+  .sidebar-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #0f2137;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebar-title {
+    font-family: 'Syne', sans-serif;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-subtitle {
+    color: var(--sidebar-text);
+    font-size: 11.5px;
+    opacity: 0.75;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .nav-section-label {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 16px 20px 5px;
+    opacity: 0.85;
+  }
+
+  nav a {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 9px 20px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 1.45;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border-left: 3px solid transparent;
+    font-family: 'Lora', serif;
+  }
+
+  nav a:hover { background: var(--sidebar-hover); color: #fff; }
+
+  nav a.active {
+    background: var(--sidebar-active-bg);
+    color: #fff;
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    color: var(--sidebar-text);
+    font-size: 11px;
+    opacity: 0.55;
+    line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── MAIN ── */
+  #main { margin-left: var(--sidebar-width); flex: 1; min-height: 100vh; }
+
+  .top-bar {
+    background: linear-gradient(90deg, #0f2137, #0d3354);
+    color: var(--accent);
+    padding: 9px 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+  .content { padding: 44px 44px 80px; max-width: 900px; }
+
+  /* Sections */
+  .section { display: none; }
+  .section.active { display: block; animation: fadeSlide 0.3s ease; }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── TYPOGRAPHY ── */
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    color: var(--sidebar-bg);
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--sidebar-bg);
+    margin: 36px 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin: 26px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p { font-size: 15.5px; line-height: 1.78; margin-bottom: 14px; color: #1f2937; }
+  .lead { font-size: 17.5px; color: var(--text-light); font-style: italic; margin-bottom: 28px; line-height: 1.7; }
+
+  .art-tag {
+    display: inline-block;
+    background: var(--sidebar-bg);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── LAW BOX ── */
+  .law-box {
+    background: var(--law-bg);
+    border: 1px solid rgba(0,188,180,0.3);
+    border-left: 5px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 18px 0 22px;
+    position: relative;
+  }
+
+  .law-box::before {
+    content: "§ LEI Nº 15.211/2025 — TEXTO LEGAL";
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: #0096a0;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .law-box p {
+    font-size: 15px;
+    color: #0d3354;
+    line-height: 1.82;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .law-box p:last-child { margin-bottom: 0; }
+
+  .law-box .inciso {
+    margin-left: 22px;
+    font-size: 14.5px;
+    margin-top: 6px;
+    color: #0d3354;
+    font-style: italic;
+    line-height: 1.75;
+  }
+
+  /* ── CALLOUTS ── */
+  .tip-box, .warn-box, .danger-box, .info-box, .purple-box {
+    border-radius: 8px;
+    padding: 17px 22px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  .tip-box { background: var(--tip-bg); border-left: 5px solid var(--tip-border); }
+  .warn-box { background: var(--warn-bg); border-left: 5px solid var(--warn-border); }
+  .danger-box { background: var(--danger-bg); border-left: 5px solid var(--danger-border); }
+  .info-box { background: var(--info-bg); border-left: 5px solid var(--info-border); }
+  .purple-box { background: var(--purple-bg); border-left: 5px solid var(--purple-border); }
+
+  .box-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .tip-box .box-label { color: var(--tip-border); }
+  .warn-box .box-label { color: #b45309; }
+  .danger-box .box-label { color: var(--danger-border); }
+  .info-box .box-label { color: #1d4ed8; }
+  .purple-box .box-label { color: var(--purple-border); }
+
+  /* ── CARDS ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 22px 0; }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.09); border-color: var(--accent); }
+  .card-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+  .card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13.5px; color: var(--sidebar-bg); margin-bottom: 6px; }
+  .card p { font-size: 13px; color: var(--text-light); margin: 0; line-height: 1.55; }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+  th { background: var(--sidebar-bg); color: var(--accent); padding: 11px 16px; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; }
+  td { padding: 11px 16px; border-bottom: 1px solid #e5e7eb; vertical-align: top; line-height: 1.6; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  td strong { color: var(--sidebar-bg); }
+
+  /* ── CHAPTERS MAP ── */
+  .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin: 20px 0; }
+
+  .chapter-card {
+    background: var(--card-bg);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+  }
+
+  .chapter-card:hover { border-color: var(--accent); background: var(--law-bg); }
+  .chapter-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); font-weight: 500; white-space: nowrap; margin-top: 2px; }
+  .chapter-info .chapter-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--sidebar-bg); margin-bottom: 3px; }
+  .chapter-info .chapter-arts { font-size: 12px; color: var(--text-light); font-style: italic; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; margin: 18px 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--accent);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.15s;
+    font-size: 13px;
+  }
+
+  .check-box:hover { transform: scale(1.1); }
+  .check-box.checked { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── FAQ ── */
+  .faq-item { border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 9px; overflow: hidden; }
+
+  .faq-q {
+    background: var(--card-bg);
+    padding: 15px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.18s;
+    user-select: none;
+    font-family: 'Lora', serif;
+    line-height: 1.45;
+  }
+
+  .faq-q:hover { background: #f8fafc; }
+  .faq-arrow { flex-shrink: 0; transition: transform 0.25s; color: var(--accent); font-size: 12px; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+  .faq-a {
+    display: none;
+    padding: 15px 18px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    font-size: 14.5px;
+    line-height: 1.75;
+  }
+
+  .faq-item.open .faq-a { display: block; animation: fadeSlide 0.2s ease; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0f2137 0%, #0d3354 60%, #0e4a5c 100%);
+    color: #fff;
+    padding: 44px 44px;
+    margin: -44px -44px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,188,180,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: "ECA";
+    position: absolute;
+    right: -5px; bottom: -20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 180px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,188,180,0.15);
+    border: 1px solid rgba(0,188,180,0.3);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    letter-spacing: 0.06em;
+  }
+
+  .hero h1 { color: #fff; font-size: 32px; margin-bottom: 12px; }
+  .hero .lead { color: rgba(255,255,255,0.7); margin-bottom: 0; }
+
+  .hero-pills {
+    margin-top: 24px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-pill span { color: var(--accent); font-weight: 500; }
+
+  /* ── FULL LAW ── */
+  .full-law-wrap {
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 36px 42px;
+    font-size: 14.5px;
+    line-height: 1.88;
+    margin: 20px 0;
+  }
+
+  .full-law-wrap .lei-title {
+    font-family: 'Syne', sans-serif;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--sidebar-bg);
+    margin-bottom: 6px;
+  }
+
+  .full-law-wrap .lei-ementa {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 13.5px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .full-law-wrap .cap-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 28px 0 10px;
+    padding: 8px 14px;
+    background: var(--law-bg);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .full-law-wrap .artigo { margin: 16px 0 8px; font-weight: 600; color: #0d3354; }
+  .full-law-wrap .paragrafo { margin-left: 22px; margin-top: 8px; }
+  .full-law-wrap .inciso-full { margin-left: 42px; margin-top: 5px; }
+  .full-law-wrap .alinea { margin-left: 62px; margin-top: 4px; }
+
+  /* ── BADGE TAGS ── */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    margin: 2px;
+    font-weight: 500;
+  }
+
+  .tag-green { background: #dcfce7; color: #15803d; }
+  .tag-red { background: #fee2e2; color: #b91c1c; }
+  .tag-blue { background: #dbeafe; color: #1d4ed8; }
+  .tag-orange { background: #ffedd5; color: #c2410c; }
+  .tag-purple { background: #ede9fe; color: #6d28d9; }
+  .tag-teal { background: #ccfbf1; color: #0f766e; }
+
+  /* ── RIGHTS TIMELINE ── */
+  .rights-timeline { margin: 20px 0; }
+  .rights-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px dashed #e5e7eb;
+  }
+  .rights-item:last-child { border-bottom: none; }
+  .rights-num {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--sidebar-bg);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .rights-content strong { display: block; font-family: 'Syne', sans-serif; font-size: 14px; color: var(--sidebar-bg); margin-bottom: 4px; }
+  .rights-content p { font-size: 13.5px; color: var(--text-light); margin: 0; line-height: 1.55; }
+
+  hr.div { border: none; border-top: 2px dashed #e5e7eb; margin: 34px 0; }
+
+  /* ── MOBILE ── */
+  #menu-toggle {
+    display: none;
+    position: fixed;
+    top: 10px; left: 10px;
+    z-index: 200;
+    background: var(--sidebar-bg);
+    color: var(--accent);
+    border: 1px solid rgba(0,188,180,0.3);
+    border-radius: 7px;
+    padding: 7px 11px;
+    font-size: 17px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    #sidebar { transform: translateX(-100%); }
+    #sidebar.open { transform: translateX(0); }
+    #main { margin-left: 0; }
+    .content { padding: 56px 18px 60px; }
+    .hero { margin: -56px -18px 32px; padding: 56px 18px 30px; }
+    h1 { font-size: 26px; }
+    .hero h1 { font-size: 22px; }
+    .card-grid, .chapter-grid { grid-template-columns: 1fr; }
+    .full-law-wrap { padding: 20px; }
+    #menu-toggle { display: block; }
+  }
+
+  strong { color: var(--sidebar-bg); }
+  em.lei { font-style: italic; color: #0d3354; }
+</style>
+</head>
+<body>
+
+<button id="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+<!-- ══ SIDEBAR ══ -->
+<aside id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-badge">⚖️ Lei Federal</div>
+    <div class="sidebar-title">ECA Digital — Lei nº 15.211/2025</div>
+    <div class="sidebar-subtitle">Proteção de crianças e adolescentes em ambientes digitais</div>
+  </div>
+
+  <div class="nav-section-label">Orientação Geral</div>
+  <nav>
+    <a onclick="show('apresentacao')" class="active"><span class="nav-icon">🏠</span> Apresentação</a>
+    <a onclick="show('visao-geral')"><span class="nav-icon">🗺️</span> Visão Geral da Lei</a>
+    <a onclick="show('definicoes')"><span class="nav-icon">📖</span> Definições Essenciais</a>
+  </nav>
+
+  <div class="nav-section-label">Proteções Centrais</div>
+  <nav>
+    <a onclick="show('fundamentos')"><span class="nav-icon">🌱</span> Fundamentos e Princípios</a>
+    <a onclick="show('conteudo-nocivo')"><span class="nav-icon">🛡️</span> Proteção contra Conteúdo Nocivo</a>
+    <a onclick="show('verificacao-idade')"><span class="nav-icon">🔐</span> Verificação de Idade</a>
+    <a onclick="show('supervisao-parental')"><span class="nav-icon">👨‍👩‍👧</span> Supervisão Parental</a>
+  </nav>
+
+  <div class="nav-section-label">Plataformas e Conteúdo</div>
+  <nav>
+    <a onclick="show('redes-sociais')"><span class="nav-icon">📱</span> Redes Sociais</a>
+    <a onclick="show('jogos')"><span class="nav-icon">🎮</span> Jogos Eletrônicos</a>
+    <a onclick="show('publicidade')"><span class="nav-icon">📢</span> Publicidade Digital</a>
+    <a onclick="show('denuncias')"><span class="nav-icon">🚨</span> Denúncias e Remoção</a>
+  </nav>
+
+  <div class="nav-section-label">Aplicação e Sanções</div>
+  <nav>
+    <a onclick="show('sancoes')"><span class="nav-icon">⚖️</span> Sanções e Multas</a>
+    <a onclick="show('vigencia')"><span class="nav-icon">📅</span> Vigência e Contexto</a>
+  </nav>
+
+  <div class="nav-section-label">Recursos para o Professor</div>
+  <nav>
+    <a onclick="show('faq')"><span class="nav-icon">❓</span> Perguntas Frequentes</a>
+    <a onclick="show('checklist')"><span class="nav-icon">✔️</span> Checklist do Professor</a>
+    <a onclick="show('lei-integral')"><span class="nav-icon">📜</span> Texto Integral da Lei</a>
+  </nav>
+
+  <div class="sidebar-footer">
+    Lei nº 15.211/2025 · DOU 17.9.2025<br>
+    Em vigor: 17 de março de 2026<br>
+    (Lei nº 15.352/2026)
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main id="main">
+  <div class="top-bar">
+    <div class="pulse"></div>
+    Lei nº 15.211/2025 — Estatuto Digital da Criança e do Adolescente — Em vigor desde 17/03/2026
+  </div>
+
+  <div class="content">
+
+    <!-- ══════════════════════ APRESENTAÇÃO -->
+    <section id="apresentacao" class="section active">
+      <div class="hero">
+        <div class="hero-eyebrow">📱 ECA Digital · Guia do Professor</div>
+        <h1>Lei nº 15.211/2025<br>Estatuto Digital da Criança e do Adolescente</h1>
+        <p class="lead">O marco legal brasileiro de proteção de crianças e adolescentes nos ambientes digitais — com comentários práticos para professores da Educação Básica.</p>
+        <div class="hero-pills">
+          <div class="hero-pill">📅 Publicação: <span>17 set. 2025</span></div>
+          <div class="hero-pill">⚡ Vigência: <span>17 mar. 2026</span></div>
+          <div class="hero-pill">🏛️ <span>16 Capítulos · 41 Artigos</span></div>
+          <div class="hero-pill">👧 <span>0–17 anos</span></div>
+        </div>
+      </div>
+
+      <h2>O que é o ECA Digital?</h2>
+      <p>A Lei nº 15.211/2025 é conhecida como o <strong>Estatuto Digital da Criança e do Adolescente</strong>. Ela cria um conjunto abrangente de obrigações para empresas de tecnologia que oferecem produtos e serviços acessíveis a crianças e adolescentes no Brasil — aplicativos, redes sociais, jogos, plataformas de streaming e qualquer software com acesso provável por menores de 18 anos.</p>
+      <p>A lei é um avanço histórico: é a primeira norma brasileira a regular de forma sistemática a experiência digital de crianças e adolescentes, indo muito além das disposições esparsas do ECA original (Lei 8.069/1990) e do Marco Civil da Internet (Lei 12.965/2014).</p>
+
+      <div class="tip-box">
+        <span class="box-label">💡 Por que o Professor precisa conhecer esta lei?</span>
+        Esta lei não regula a escola — ela regula as plataformas e empresas de tecnologia. Mas seus efeitos chegam diretamente à sala de aula: ela define direitos dos estudantes, obrigações das plataformas que eles usam, e cria fundamentos legais para que professores e famílias exijam proteção. Conhecer a lei fortalece o professor como educador digital e como defensor dos direitos de seus alunos.
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-icon">🔞</span>
+          <div class="card-title">Restrição de Conteúdo</div>
+          <p>Plataformas devem bloquear acesso de menores a conteúdos pornográficos e impróprios.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <div class="card-title">Vedação ao Perfilamento</div>
+          <p>Proibida a criação de perfis comportamentais de menores para fins publicitários.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🎰</span>
+          <div class="card-title">Loot Boxes Proibidas</div>
+          <p>Jogos com acesso provável por menores não podem ter caixas de recompensa pagas.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">👨‍👩‍👧</span>
+          <div class="card-title">Supervisão Parental</div>
+          <p>Plataformas devem oferecer ferramentas robustas de controle e supervisão para pais.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">✅</span>
+          <div class="card-title">Verificação de Idade</div>
+          <p>Autodeclaração de idade é vedada para conteúdos inadequados a menores.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💰</span>
+          <div class="card-title">Multas Pesadas</div>
+          <p>Descumprimento pode gerar multas de até 10% do faturamento da empresa no Brasil.</p>
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <span class="box-label">⚠️ Atenção</span>
+        Este guia tem finalidade educativa e orientadora. A lei regula principalmente empresas fornecedoras de tecnologia. Em situações específicas envolvendo violações de direitos de alunos, consulte a direção escolar, o Conselho Tutelar ou o Ministério Público.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ VISÃO GERAL -->
+    <section id="visao-geral" class="section">
+      <div class="art-tag">🗺️ Visão Geral</div>
+      <h1>Mapa da Lei</h1>
+      <p class="lead">16 capítulos que cobrem desde definições até sanções de até 50 milhões de reais por infração.</p>
+
+      <h2>Estrutura Completa</h2>
+      <div class="chapter-grid">
+        <div class="chapter-card" onclick="show('definicoes')">
+          <div class="chapter-num">Cap. I–II</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Fundamentos e Definições</div>
+            <div class="chapter-arts">Arts. 1–8 · Base conceitual e princípios</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('conteudo-nocivo')">
+          <div class="chapter-num">Cap. III</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Vedação a Conteúdos Impróprios</div>
+            <div class="chapter-arts">Art. 9 · Bloqueio de acesso</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('verificacao-idade')">
+          <div class="chapter-num">Cap. IV</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Aferição de Idade</div>
+            <div class="chapter-arts">Arts. 10–15 · Mecanismos técnicos</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('supervisao-parental')">
+          <div class="chapter-num">Cap. V</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Supervisão Parental</div>
+            <div class="chapter-arts">Arts. 16–18 · Ferramentas e obrigações</div>
+          </div>
+        </div>
+        <div class="chapter-card">
+          <div class="chapter-num">Cap. VI</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Monitoramento Infantil</div>
+            <div class="chapter-arts">Art. 19 · Produtos de controle parental</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('jogos')">
+          <div class="chapter-num">Cap. VII</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Jogos Eletrônicos</div>
+            <div class="chapter-arts">Arts. 20–21 · Loot boxes e interação</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('publicidade')">
+          <div class="chapter-num">Cap. VIII</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Publicidade Digital</div>
+            <div class="chapter-arts">Arts. 22–23 · Perfilamento e monetização</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('redes-sociais')">
+          <div class="chapter-num">Cap. IX</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Redes Sociais</div>
+            <div class="chapter-arts">Arts. 24–26 · Proteção e vinculação</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('denuncias')">
+          <div class="chapter-num">Cap. X–XI</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Violações e Denúncias</div>
+            <div class="chapter-arts">Arts. 27–30 · Remoção e reporte</div>
+          </div>
+        </div>
+        <div class="chapter-card">
+          <div class="chapter-num">Cap. XII–XIII</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Transparência e Denúncias</div>
+            <div class="chapter-arts">Arts. 31–33 · Relatórios e abusos</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('sancoes')">
+          <div class="chapter-num">Cap. XV</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Sanções</div>
+            <div class="chapter-arts">Arts. 35–36A · Multas e proibições</div>
+          </div>
+        </div>
+        <div class="chapter-card" onclick="show('vigencia')">
+          <div class="chapter-num">Cap. XVI</div>
+          <div class="chapter-info">
+            <div class="chapter-name">Disposições Finais</div>
+            <div class="chapter-arts">Arts. 37–41A · Vigência e regulamentação</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>O que muda na prática?</h2>
+      <table>
+        <thead><tr><th>Tema</th><th>Antes da lei</th><th>Com a lei</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Perfil em rede social</strong></td><td>Sem controle mínimo obrigatório</td><td>Menores de 16 anos devem ter conta vinculada a responsável legal</td></tr>
+          <tr><td><strong>Publicidade direcionada</strong></td><td>Algoritmos perfilavam crianças livremente</td><td>Proibido perfilamento de menores para publicidade</td></tr>
+          <tr><td><strong>Loot boxes</strong></td><td>Sem restrição específica</td><td>Proibidas em jogos com acesso provável por menores</td></tr>
+          <tr><td><strong>Verificação de idade</strong></td><td>Autodeclaração aceita</td><td>Autodeclaração vedada; mecanismos confiáveis exigidos</td></tr>
+          <tr><td><strong>Remoção de conteúdo</strong></td><td>Dependia de ordem judicial na maioria dos casos</td><td>Remoção obrigatória após notificação por vítima ou MP</td></tr>
+          <tr><td><strong>Download de apps</strong></td><td>Sem exigência de consentimento</td><td>Exige consentimento dos pais para download por menores</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <span class="box-label">ℹ️ Leis complementadas por esta norma</span>
+        O ECA Digital dialoga com e fortalece: o <strong>ECA — Lei 8.069/1990</strong>, o <strong>Marco Civil da Internet — Lei 12.965/2014</strong>, a <strong>LGPD — Lei 13.709/2018</strong> e o <strong>Estatuto da Pessoa com Deficiência — Lei 13.146/2015</strong>.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ DEFINIÇÕES -->
+    <section id="definicoes" class="section">
+      <div class="art-tag">📖 Arts. 1º–3º</div>
+      <h1>Definições Essenciais</h1>
+      <p class="lead">O Art. 2º traz um glossário técnico-legal. Conhecer esses termos é fundamental para entender todo o restante da lei.</p>
+
+      <h2>Abrangência da Lei — Art. 1º</h2>
+      <div class="law-box">
+        <p><strong>Art. 1º</strong> Esta Lei dispõe sobre a proteção de crianças e de adolescentes em ambientes digitais e aplica-se a todo produto ou serviço de tecnologia da informação direcionado a crianças e a adolescentes no País ou de <em>acesso provável por eles</em>, independentemente de sua localização, desenvolvimento, fabricação, oferta, comercialização e operação.</p>
+        <p><strong>Parágrafo único.</strong> Para os fins desta Lei, considera-se acesso provável por crianças e adolescentes as seguintes situações:</p>
+        <p class="inciso"><strong>I</strong> — suficiente probabilidade de uso e atratividade do produto ou serviço por crianças e adolescentes;</p>
+        <p class="inciso"><strong>II</strong> — considerável facilidade ao acesso e utilização do produto ou serviço por crianças e adolescentes; e</p>
+        <p class="inciso"><strong>III</strong> — significativo grau de risco à privacidade, à segurança ou ao desenvolvimento biopsicossocial de crianças e de adolescentes.</p>
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 "Acesso provável" é conceito-chave</span>
+        Uma plataforma não pode se escusar dizendo que "não é direcionada a crianças". Se ela tem <em>probabilidade de uso</em>, <em>facilidade de acesso</em> ou <em>risco ao desenvolvimento</em> de crianças, a lei se aplica. Isso inclui o YouTube (mesmo que adulto crie a conta), o TikTok, plataformas de games e muitos outros serviços.
+      </div>
+
+      <h2>Glossário Legal — Art. 2º</h2>
+
+      <div class="rights-timeline">
+        <div class="rights-item">
+          <div class="rights-num">I</div>
+          <div class="rights-content">
+            <strong>Produto/Serviço de TI</strong>
+            <p>Apps, softwares, sistemas operacionais, lojas de apps, jogos eletrônicos conectados à internet. <em>Definição propositalmente ampla</em> para cobrir toda a cadeia digital.</p>
+          </div>
+        </div>
+        <div class="rights-item">
+          <div class="rights-num">III</div>
+          <div class="rights-content">
+            <strong>Rede Social</strong>
+            <p>Aplicação de internet cujo fim principal é o compartilhamento de opiniões e informações entre usuários em contas conectadas. Inclui Instagram, TikTok, X (Twitter), Facebook, etc.</p>
+          </div>
+        </div>
+        <div class="rights-item">
+          <div class="rights-num">IV</div>
+          <div class="rights-content">
+            <strong>Caixa de Recompensa (<em>Loot Box</em>)</strong>
+            <p>Funcionalidade em jogos onde o jogador paga por itens aleatórios cujo conteúdo não é previamente conhecido. Proibida para menores pela lei (Art. 20).</p>
+          </div>
+        </div>
+        <div class="rights-item">
+          <div class="rights-num">V</div>
+          <div class="rights-content">
+            <strong>Perfilamento</strong>
+            <p>Qualquer tratamento de dados para classificar a pessoa em grupos e fazer inferências sobre seu comportamento, preferências, situação econômica ou posições políticas. <em>Proibido para fins publicitários com menores</em> (Art. 26).</p>
+          </div>
+        </div>
+        <div class="rights-item">
+          <div class="rights-num">VIII</div>
+          <div class="rights-content">
+            <strong>Mecanismo de Supervisão Parental</strong>
+            <p>Conjunto de configurações e ferramentas que permitem aos pais supervisionar, limitar e gerenciar o uso do serviço pela criança ou adolescente — incluindo tempo de tela, conteúdos e contatos.</p>
+          </div>
+        </div>
+        <div class="rights-item">
+          <div class="rights-num">XI</div>
+          <div class="rights-content">
+            <strong>Monetização</strong>
+            <p>Remuneração direta ou indireta pela publicação de conteúdo — inclui receita por visualizações, assinaturas, doações, publicidade. Vedada para conteúdos que retratem menores de forma erotizada (Art. 23).</p>
+          </div>
+        </div>
+        <div class="rights-item">
+          <div class="rights-num">XII</div>
+          <div class="rights-content">
+            <strong>Impulsionamento</strong>
+            <p>Ampliação artificial do alcance de conteúdo mediante pagamento. Vedado para conteúdos que retratem menores de forma erotizada ou sexualmente sugestiva (Art. 23).</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Responsabilidade dos Pais — Art. 3º</h2>
+      <div class="law-box">
+        <p><strong>Art. 3º, Parágrafo único.</strong> A criança e o adolescente têm o direito de ser educados, orientados e acompanhados por seus pais ou responsáveis legais quanto ao uso da internet e à sua experiência digital, e a estes incumbe o exercício do cuidado ativo e contínuo, por meio da utilização de ferramentas de supervisão parental adequadas à idade e ao estágio de desenvolvimento da criança e do adolescente.</p>
+      </div>
+
+      <div class="purple-box">
+        <span class="box-label">🎓 Para o Professor — Diálogo com as Famílias</span>
+        O Art. 3º, parágrafo único é um argumento legal poderoso para usar em reuniões de pais. A lei afirma que o <strong>cuidado digital ativo e contínuo</strong> é incumbência dos pais e responsáveis — não apenas da escola. Isso inclui usar as ferramentas de controle parental disponíveis nas plataformas, adequadas à faixa etária.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ FUNDAMENTOS -->
+    <section id="fundamentos" class="section">
+      <div class="art-tag">🌱 Arts. 4º–5º</div>
+      <h1>Fundamentos e Princípios</h1>
+      <p class="lead">Os pilares sobre os quais toda a lei se sustenta — e que orientam a interpretação de qualquer conflito entre seus dispositivos.</p>
+
+      <h2>Os 9 Fundamentos — Art. 4º</h2>
+      <div class="law-box">
+        <p><strong>Art. 4º</strong> A utilização de produtos ou serviços de tecnologia da informação por crianças e adolescentes tem como fundamentos:</p>
+        <p class="inciso"><strong>I</strong> — a garantia de sua proteção integral;</p>
+        <p class="inciso"><strong>II</strong> — a prevalência absoluta de seus interesses;</p>
+        <p class="inciso"><strong>III</strong> — a condição peculiar de pessoa em desenvolvimento biopsicossocial;</p>
+        <p class="inciso"><strong>IV</strong> — a segurança contra intimidação, exploração, abuso, ameaça e outras formas de violência;</p>
+        <p class="inciso"><strong>V</strong> — o respeito à autonomia e ao desenvolvimento progressivo do indivíduo;</p>
+        <p class="inciso"><strong>VI</strong> — a proteção contra a exploração comercial;</p>
+        <p class="inciso"><strong>VII</strong> — a observância dos princípios do Estatuto da Pessoa com Deficiência;</p>
+        <p class="inciso"><strong>VIII</strong> — a promoção da educação digital, com foco no desenvolvimento da cidadania e do senso crítico para o uso seguro e responsável da tecnologia; e</p>
+        <p class="inciso"><strong>IX</strong> — a transparência e a responsabilidade no tratamento de dados pessoais.</p>
+      </div>
+
+      <h3>🎓 Destaque Pedagógico — Inciso VIII</h3>
+      <p>O inciso VIII incorpora explicitamente a <strong>educação digital</strong> como fundamento da lei. Isso significa que promover o letramento digital crítico, ensinar sobre segurança online e desenvolver cidadãos digitais conscientes é, além de boa prática pedagógica, um <em>valor legal expressamente reconhecido</em>.</p>
+
+      <div class="tip-box">
+        <span class="box-label">💡 Conexão com a BNCC e o PPP</span>
+        O inciso VIII da lei alinha-se diretamente com as competências digitais da BNCC e abre espaço para que as escolas incluam explicitamente em seus Projetos Político-Pedagógicos ações de educação digital como cumprimento de obrigação legal — não apenas como projeto opcional.
+      </div>
+
+      <h2>O "Melhor Interesse" em sentido amplo — Art. 5º, §2º</h2>
+      <div class="law-box">
+        <p><strong>Art. 5º, § 2º</strong> Para os fins desta Lei, considera-se como expressão do melhor interesse da criança e do adolescente a proteção de sua privacidade, segurança, saúde mental e física, acesso à informação, liberdade de participação na sociedade, acesso significativo às tecnologias digitais e bem-estar.</p>
+      </div>
+
+      <div class="info-box">
+        <span class="box-label">ℹ️ Uma definição ampla de "melhor interesse"</span>
+        A lei inova ao definir que o <em>acesso significativo às tecnologias digitais</em> é parte do melhor interesse da criança — não apenas sua proteção da tecnologia. Isso é importante: a lei não é antidigital. Ela protege o acesso <em>saudável e seguro</em>, não propõe o afastamento total.
+      </div>
+
+      <h2>Conteúdos que as Plataformas Devem Prevenir — Art. 6º</h2>
+      <div class="law-box">
+        <p><strong>Art. 6º</strong> Os fornecedores [...] deverão tomar medidas razoáveis desde a concepção [...], com o objetivo de prevenir e mitigar riscos de acesso, exposição, recomendação ou facilitação de contato com os seguintes conteúdos, produtos ou práticas:</p>
+        <p class="inciso"><strong>I</strong> — exploração e abuso sexual;</p>
+        <p class="inciso"><strong>II</strong> — violência física, intimidação sistemática virtual e assédio;</p>
+        <p class="inciso"><strong>III</strong> — indução a práticas que levem a danos à saúde, tais como automutilação e suicídio;</p>
+        <p class="inciso"><strong>IV</strong> — promoção de jogos de azar, apostas, tabaco, bebidas alcoólicas ou narcóticos;</p>
+        <p class="inciso"><strong>V</strong> — práticas publicitárias predatórias, injustas ou enganosas; e</p>
+        <p class="inciso"><strong>VI</strong> — conteúdo pornográfico.</p>
+      </div>
+
+      <div class="danger-box">
+        <span class="box-label">🔴 Dever do Professor — Sinal de Alerta</span>
+        Quando um aluno relata ou demonstra ter tido contato com qualquer um dos conteúdos listados no Art. 6º — especialmente automutilação, conteúdo pornográfico ou situações de assédio online — o professor deve acionar o protocolo escolar de proteção, comunicar a direção e, se houver risco iminente, acionar o Conselho Tutelar. Esses conteúdos são violações da lei e devem ser notificados às plataformas (Art. 27 e 28).
+      </div>
+    </section>
+
+    <!-- ══════════════════════ CONTEÚDO NOCIVO -->
+    <section id="conteudo-nocivo" class="section">
+      <div class="art-tag">🛡️ Arts. 7º–9º</div>
+      <h1>Proteção contra Conteúdo Nocivo</h1>
+      <p class="lead">A lei determina que as plataformas devem ser seguras por padrão — não seguras apenas quando os usuários configuram isso manualmente.</p>
+
+      <h2>Privacidade Máxima como Padrão — Art. 7º</h2>
+      <div class="law-box">
+        <p><strong>Art. 7º</strong> Os fornecedores [...] deverão, desde a concepção de seus produtos e serviços, garantir, por padrão, a configuração no modelo mais protetivo disponível em relação à privacidade e à proteção de dados pessoais.</p>
+        <p><strong>§ 1º</strong> O produto ou serviço referido no caput deste artigo deverá, por padrão, operar com o grau mais elevado de proteção da privacidade e dos dados pessoais, observado que será obrigatória a disponibilização de informações claras, acessíveis e adequadas para que a criança ou o adolescente e seus responsáveis possam exercer escolhas informadas quanto à eventual adoção de configurações menos protetivas.</p>
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 "Privacy by Default" — O que muda?</span>
+        Antes da lei, as plataformas costumavam entregar perfis abertos e alimentados por algoritmos por padrão — o usuário precisava ir nas configurações para restringir. Agora a lógica se inverte: <strong>o padrão é o mais protegido</strong>. Para reduzir a proteção, o usuário (ou responsável) precisa ativamente optar por isso. Isso é especialmente relevante para contas de menores de 16 anos.
+      </div>
+
+      <h2>Obrigações Gerais das Plataformas — Art. 8º</h2>
+      <div class="law-box">
+        <p><strong>Art. 8º</strong> Os fornecedores [...] deverão:</p>
+        <p class="inciso"><strong>I</strong> — realizar gerenciamento de riscos de seus recursos, funcionalidades e sistemas;</p>
+        <p class="inciso"><strong>II</strong> — realizar avaliação do conteúdo disponibilizado para crianças e adolescentes de acordo com a faixa etária;</p>
+        <p class="inciso"><strong>III</strong> — oferecer sistemas para impedir que crianças e adolescentes encontrem conteúdos ilegais e pornográficos;</p>
+        <p class="inciso"><strong>IV</strong> — desenvolver e adotar por padrão configurações que evitem o uso compulsivo por crianças e adolescentes; e</p>
+        <p class="inciso"><strong>V</strong> — informar extensivamente a todos os usuários sobre a faixa etária indicada para o produto ou serviço.</p>
+      </div>
+
+      <div class="purple-box">
+        <span class="box-label">🎓 Inciso IV — Design Anticompulsivo</span>
+        O inciso IV é revolucionário: obriga as plataformas a <strong>evitar por padrão o uso compulsivo</strong>. Isso significa que recursos como "reprodução automática", notificações excessivas e sistemas de recompensa por tempo de uso que criam dependência em menores são proibidos como configuração padrão. Os professores podem citar esse inciso ao debater em sala o design manipulativo das redes sociais.
+      </div>
+
+      <h2>Vedação à Autodeclaração de Idade — Art. 9º</h2>
+      <div class="law-box">
+        <p><strong>Art. 9º</strong> Os fornecedores [...] que disponibilizarem conteúdo, produto ou serviço cuja oferta ou acesso seja impróprio, inadequado ou proibido para menores de 18 anos deverão adotar medidas eficazes para impedir o seu acesso por crianças e adolescentes.</p>
+        <p><strong>§ 1º</strong> Para dar efetividade ao disposto no caput, deverão ser adotados mecanismos confiáveis de verificação de idade a cada acesso do usuário ao conteúdo, produto ou serviço [...], <em>vedada a autodeclaração</em>.</p>
+        <p><strong>§ 3º</strong> Os provedores de aplicações de internet que disponibilizarem conteúdo pornográfico deverão impedir a criação de contas ou de perfis por crianças e adolescentes no âmbito de seus serviços.</p>
+      </div>
+
+      <div class="danger-box">
+        <span class="box-label">🔴 Fim do "Sou maior de 18 anos"</span>
+        Acabou a era do clique em "Confirmo que tenho mais de 18 anos". A lei veda expressamente a autodeclaração como forma de verificação de idade para conteúdos adultos. As plataformas precisam usar mecanismos tecnicamente confiáveis — o que cria desafios técnicos e de privacidade que ainda estão sendo regulamentados pelo Poder Executivo.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ VERIFICAÇÃO DE IDADE -->
+    <section id="verificacao-idade" class="section">
+      <div class="art-tag">🔐 Arts. 10–15</div>
+      <h1>Verificação de Idade</h1>
+      <p class="lead">Um dos capítulos mais técnicos da lei, que regula como as plataformas devem verificar a idade dos usuários sem violar a privacidade.</p>
+
+      <h2>O Princípio Geral — Art. 10</h2>
+      <div class="law-box">
+        <p><strong>Art. 10.</strong> Os fornecedores [...] deverão adotar mecanismos para proporcionar experiências adequadas à idade, nos termos deste Capítulo, respeitadas a autonomia progressiva e a diversidade de contextos socioeconômicos brasileiros.</p>
+      </div>
+
+      <h3>📱 Obrigações das Lojas de Apps e Sistemas Operacionais — Art. 12</h3>
+      <div class="law-box">
+        <p><strong>Art. 12.</strong> Os provedores de lojas de aplicações de internet e de sistemas operacionais de terminais deverão:</p>
+        <p class="inciso"><strong>I</strong> — tomar medidas proporcionais, auditáveis e tecnicamente seguras para aferir a idade ou a faixa etária dos usuários;</p>
+        <p class="inciso"><strong>II</strong> — permitir que os pais ou responsáveis legais configurem mecanismos de supervisão parental voluntários e supervisionem, de forma ativa, o acesso de crianças e de adolescentes a aplicativos e conteúdos; e</p>
+        <p class="inciso"><strong>III</strong> — possibilitar, por meio de API segura [...], o fornecimento de sinal de idade aos provedores de aplicações de internet.</p>
+        <p><strong>§ 2º</strong> A autorização para download de aplicativos por crianças e adolescentes dependerá de consentimento livre e informado dos pais ou responsáveis legais [...], vedada a presunção de autorização na hipótese de ausência de manifestação dos pais ou responsáveis legais.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-icon">📲</span>
+          <div class="card-title">Google Play / App Store</div>
+          <p>Lojas de apps devem verificar idade e exigir consentimento dos pais para downloads por menores.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">📵</span>
+          <div class="card-title">Sem Presunção de Autorização</div>
+          <p>Se os pais não se manifestam, o download NÃO está autorizado. A ausência de resposta não é aprovação.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Dados só para Verificação</div>
+          <p>Dados coletados para verificar idade só podem ser usados para isso — nenhum outro propósito (Art. 13).</p>
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <span class="box-label">⚠️ Contexto Socioeconômico — Art. 10</span>
+        O Art. 10 exige que os mecanismos de verificação de idade respeitem "a diversidade de contextos socioeconômicos brasileiros". Isso significa que a lei reconhece que nem toda família tem acesso fácil a documentos digitais ou a processos de verificação sofisticados. A regulamentação deve levar em conta essa realidade — o que é especialmente relevante nas comunidades escolares mais vulneráveis.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ SUPERVISÃO PARENTAL -->
+    <section id="supervisao-parental" class="section">
+      <div class="art-tag">👨‍👩‍👧 Arts. 16–18</div>
+      <h1>Supervisão Parental</h1>
+      <p class="lead">Um dos capítulos mais práticos para o cotidiano das famílias: a lei detalha o que as plataformas devem oferecer e o que os pais podem controlar.</p>
+
+      <h2>Informações Obrigatórias — Art. 16</h2>
+      <div class="law-box">
+        <p><strong>Art. 16.</strong> Os fornecedores [...] deverão disponibilizar a pais, responsáveis legais, crianças e adolescentes, com acesso de forma independente da aquisição do produto, informações sobre os riscos e as medidas de segurança adotadas para esse público.</p>
+      </div>
+
+      <h2>O que a plataforma DEVE oferecer — Art. 17</h2>
+      <div class="law-box">
+        <p><strong>Art. 17.</strong> Os fornecedores [...] deverão:</p>
+        <p class="inciso"><strong>I</strong> — disponibilizar configurações e ferramentas acessíveis e fáceis de usar que apoiem a supervisão parental;</p>
+        <p class="inciso"><strong>II</strong> — fornecer, em local de fácil acesso, informações aos pais sobre as ferramentas existentes;</p>
+        <p class="inciso"><strong>III</strong> — exibir aviso claro e visível quando as ferramentas de supervisão parental estiverem em vigor; e</p>
+        <p class="inciso"><strong>IV</strong> — oferecer funcionalidades que permitam limitar e monitorar o tempo de uso.</p>
+      </div>
+
+      <h2>Proteções Mínimas Obrigatórias — Art. 17, §4º</h2>
+      <div class="law-box">
+        <p><strong>Art. 17, § 4º</strong> As configurações-padrão das ferramentas de supervisão parental deverão adotar o mais alto nível de proteção disponível, assegurados, no mínimo:</p>
+        <p class="inciso"><strong>I</strong> — restrição à comunicação com crianças e adolescentes por usuários não autorizados;</p>
+        <p class="inciso"><strong>II</strong> — limitação de recursos para aumentar, sustentar ou estender artificialmente o uso, como reprodução automática de mídia, recompensas pelo tempo de uso, notificações e outros recursos que possam resultar em uso excessivo;</p>
+        <p class="inciso"><strong>III</strong> — oferta de ferramentas para acompanhamento do uso adequado e saudável;</p>
+        <p class="inciso"><strong>IV</strong> — interfaces que permitam a imediata visualização e limitação do tempo de uso;</p>
+        <p class="inciso"><strong>V</strong> — controle sobre sistemas de recomendação personalizados, inclusive com opção de desativação;</p>
+        <p class="inciso"><strong>VI</strong> — restrição ao compartilhamento da geolocalização;</p>
+        <p class="inciso"><strong>VII</strong> — promoção da educação digital midiática quanto ao uso seguro;</p>
+        <p class="inciso"><strong>VIII</strong> — revisão regular das ferramentas de inteligência artificial com participação de especialistas; e</p>
+        <p class="inciso"><strong>IX</strong> — disponibilização de recursos ou conexões a serviços de suporte emocional e bem-estar.</p>
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 O que os pais podem exigir — Art. 18</span>
+        O Art. 18 lista o que os pais têm direito de fazer pelas ferramentas de supervisão parental: visualizar e gerenciar opções de conta, <strong>restringir compras e transações financeiras</strong>, identificar adultos com quem o filho se comunica, <strong>acessar métricas de tempo de uso</strong>, e tudo em <strong>língua portuguesa</strong>. Esse é um arsenal de direitos que a escola pode ajudar as famílias a conhecer e usar.
+      </div>
+
+      <h2>Vedação a Interfaces Manipuladoras — Art. 18, §2º</h2>
+      <div class="law-box">
+        <p><strong>Art. 18, § 2º</strong> É vedado ao fornecedor projetar, modificar ou manipular interfaces com o objetivo ou efeito de comprometer a autonomia, a tomada de decisão ou a escolha do usuário, especialmente se resultar no enfraquecimento das ferramentas de supervisão parental ou das salvaguardas.</p>
+      </div>
+
+      <div class="purple-box">
+        <span class="box-label">🎓 Oportunidade Pedagógica — Dark Patterns</span>
+        O Art. 18, §2º proíbe os chamados <em>dark patterns</em> — designs manipulativos que induzem usuários a tomar decisões contra seus próprios interesses. Esse é um tema excelente para trabalhar em Língua Portuguesa (análise crítica de interfaces), em Sociologia (poder e tecnologia) e em Filosofia (autonomia e manipulação). A lei nomeia e proíbe a manipulação — o professor pode usá-la como caso de estudo real.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ REDES SOCIAIS -->
+    <section id="redes-sociais" class="section">
+      <div class="art-tag">📱 Arts. 24–26</div>
+      <h1>Redes Sociais</h1>
+      <p class="lead">O capítulo mais impactante para o cotidiano dos adolescentes. Regras específicas para a vinculação de contas, perfis comportamentais e publicidade.</p>
+
+      <h2>Contas de Menores de 16 Anos — Art. 24</h2>
+      <div class="law-box">
+        <p><strong>Art. 24.</strong> No âmbito de seus serviços, os provedores [...] deverão garantir que usuários ou contas de crianças e de adolescentes de até 16 (dezesseis) anos de idade estejam vinculados ao usuário ou à conta de um de seus responsáveis legais.</p>
+        <p><strong>§ 4º</strong> Diante de fundados indícios de que a conta é operada por criança ou adolescente em desconformidade com os requisitos de idade mínima previstos na legislação, os provedores de redes sociais deverão suspender o acesso do usuário e assegurar a instauração de procedimento célere e acessível no qual o responsável legal possa apresentar apelação e comprovar a idade por meio adequado.</p>
+        <p><strong>§ 5º</strong> Na ausência de usuário ou conta dos responsáveis legais, os provedores deverão vedar a possibilidade de alteração das configurações de supervisão parental da conta para um nível menor de proteção em relação ao padrão estabelecido nos arts. 3º e 7º desta Lei.</p>
+      </div>
+
+      <div class="info-box">
+        <span class="box-label">ℹ️ O que isso significa na prática</span>
+        Crianças e adolescentes até 15 anos só podem ter conta em redes sociais vinculada à conta de um pai ou responsável. Sem essa vinculação, a conta pode ser suspensa. E sem responsável vinculado, nenhuma configuração de privacidade pode ser enfraquecida — as proteções máximas são permanentes.
+      </div>
+
+      <h2>Proibição de Perfilamento para Publicidade — Art. 26</h2>
+      <div class="law-box">
+        <p><strong>Art. 26.</strong> É vedada a criação de perfis comportamentais de usuários crianças e adolescentes a partir da coleta e do tratamento de seus dados pessoais, inclusive daqueles obtidos nos processos de verificação de idade, bem como de dados grupais e coletivos, para fins de direcionamento de publicidade comercial.</p>
+      </div>
+
+      <div class="danger-box">
+        <span class="box-label">🔴 Fim do Targeting de Menores</span>
+        Esta é uma das disposições mais importantes da lei. As plataformas não podem mais usar os dados de comportamento de crianças e adolescentes para direcionar publicidade a eles. Isso abrange não apenas os dados do perfil, mas também os obtidos na verificação de idade. É uma resposta direta ao modelo de negócio das big techs baseado em publicidade comportamental.
+      </div>
+
+      <h2>Regras Específicas para Dados — Art. 25</h2>
+      <div class="law-box">
+        <p><strong>Art. 25.</strong> Os provedores de redes sociais deverão prever regras específicas para o tratamento de dados de crianças e de adolescentes, definidas de forma concreta e documentada e com base no seu melhor interesse.</p>
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 Conversa com os Alunos</span>
+        Esses artigos abrem uma discussão fundamental em sala: <em>como as redes sociais ganham dinheiro com os dados?</em> A lei reconhece o problema e tenta coibir — mas a solução mais duradoura passa pela formação crítica dos jovens. Trabalhar o conceito de economia da atenção, o valor dos dados pessoais e os modelos de negócio das plataformas é uma das formas mais poderosas de proteção.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ JOGOS -->
+    <section id="jogos" class="section">
+      <div class="art-tag">🎮 Arts. 20–21</div>
+      <h1>Jogos Eletrônicos</h1>
+      <p class="lead">A lei traz duas determinações claras e práticas sobre jogos: a proibição das loot boxes e a obrigação de controles parentais nas interações entre usuários.</p>
+
+      <h2>Proibição das Loot Boxes — Art. 20</h2>
+      <div class="law-box">
+        <p><strong>Art. 20.</strong> São vedadas as caixas de recompensa (loot boxes) oferecidas em jogos eletrônicos direcionados a crianças e a adolescentes ou de acesso provável por eles, nos termos da respectiva classificação indicativa.</p>
+      </div>
+
+      <div class="info-box">
+        <span class="box-label">ℹ️ Por que as Loot Boxes são problemáticas?</span>
+        Loot boxes funcionam como uma mecânica de aposta: o jogador paga por um item aleatório sem saber o que receberá. Estudos demonstram que essa mecânica ativa os mesmos circuitos cerebrais que o jogo de azar, sendo especialmente atraente — e potencialmente danosa — para o cérebro em desenvolvimento de crianças e adolescentes. A lei proíbe esse mecanismo em jogos acessíveis a menores.
+      </div>
+
+      <div class="warn-box">
+        <span class="box-label">⚠️ Jogos Populares Afetados</span>
+        Vários jogos amplamente usados por adolescentes brasileiros incluíam loot boxes — como FIFA Ultimate Team (pacotes de jogadores), Free Fire (caixas) e outros. Com a lei, esses jogos, classificados como de acesso provável por menores, precisarão adaptar ou remover essas funcionalidades para o público brasileiro.
+      </div>
+
+      <h2>Interação entre Usuários em Jogos — Art. 21</h2>
+      <div class="law-box">
+        <p><strong>Art. 21.</strong> Os jogos eletrônicos [...] que incluam funcionalidades de interação entre usuários por meio de mensagens de texto, áudio ou vídeo [...] deverão observar integralmente as salvaguardas [...], especialmente no que se refere à moderação de conteúdos, à proteção contra contatos prejudiciais e à atuação parental sobre os mecanismos de comunicação.</p>
+        <p><strong>Parágrafo único.</strong> Os jogos de que trata o caput deste artigo deverão, por padrão, limitar as funcionalidades de interação a usuários, de modo a assegurar o consentimento dos pais ou responsáveis legais.</p>
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 Para Conversar com os Alunos</span>
+        O chat dentro dos jogos (texto, voz, vídeo) é um dos ambientes digitais menos supervisionados onde crianças e adolescentes interagem com adultos desconhecidos. A lei exige que, por padrão, essa interação seja limitada até que os pais autorizem. Os alunos geralmente não sabem disso — e é uma conversa importante sobre segurança digital.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ PUBLICIDADE -->
+    <section id="publicidade" class="section">
+      <div class="art-tag">📢 Arts. 22–23</div>
+      <h1>Publicidade Digital</h1>
+      <p class="lead">Duas vedações diretas e impactantes sobre o modelo publicitário digital que envolve crianças e adolescentes.</p>
+
+      <h2>Proibição de Publicidade por Perfilamento — Art. 22</h2>
+      <div class="law-box">
+        <p><strong>Art. 22.</strong> Para além das demais disposições desta Lei, é vedada a utilização de técnicas de perfilamento para direcionamento de publicidade comercial a crianças e a adolescentes, bem como o emprego de análise emocional, de realidade aumentada, de realidade estendida e de realidade virtual para esse fim.</p>
+      </div>
+
+      <div class="danger-box">
+        <span class="box-label">🔴 Técnicas Proibidas — Completo</span>
+        A lei vai além do perfilamento de dados e também proíbe: <strong>análise emocional</strong> (uso de IA para detectar estado emocional para vender), <strong>realidade aumentada</strong> (como filtros com produtos), <strong>realidade estendida</strong> e <strong>realidade virtual</strong> para fins publicitários direcionados a menores. É uma vedação abrangente às técnicas de marketing mais modernas e invasivas.
+      </div>
+
+      <h2>Vedação à Monetização de Conteúdo Erotizado de Menores — Art. 23</h2>
+      <div class="law-box">
+        <p><strong>Art. 23.</strong> São vedados aos provedores de aplicações de internet a monetização e o impulsionamento de conteúdos que retratem crianças e adolescentes de forma erotizada ou sexualmente sugestiva ou em contexto próprio do universo sexual adulto.</p>
+      </div>
+
+      <div class="info-box">
+        <span class="box-label">ℹ️ Uma proteção explícita contra a sexualização online</span>
+        O Art. 23 cria uma proibição clara: as plataformas não podem ganhar dinheiro com conteúdo que erotize crianças e adolescentes, nem podem ampliar o alcance desses conteúdos mediante pagamento. Isso cria responsabilidade direta das plataformas — não apenas dos criadores do conteúdo.
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 Educação Midiática em Sala</span>
+        Esses dois artigos são material riquíssimo para trabalhar análise crítica de publicidade em Língua Portuguesa ou Sociologia. Perguntas que engajam: <em>Como os algoritmos nos conhecem? Por que vemos anúncios de coisas que conversamos sobre? O que é análise emocional de dados? Quem se beneficia do nosso tempo de tela?</em> A lei nomeia o problema — o professor pode aprofundar o debate.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ DENÚNCIAS -->
+    <section id="denuncias" class="section">
+      <div class="art-tag">🚨 Arts. 27–30</div>
+      <h1>Violações Graves e Denúncias</h1>
+      <p class="lead">A lei estabelece obrigações claras de remoção e comunicação às autoridades — independentemente de ordem judicial.</p>
+
+      <h2>Obrigação de Remover e Reportar — Art. 27</h2>
+      <div class="law-box">
+        <p><strong>Art. 27.</strong> Os fornecedores [...] deverão remover e comunicar os conteúdos de aparente exploração, de abuso sexual, de sequestro e de aliciamento detectados em seus produtos ou serviços, direta ou indiretamente, às autoridades nacionais e internacionais competentes, na forma de regulamento.</p>
+      </div>
+
+      <h2>Remoção Obrigatória sem Ordem Judicial — Art. 29</h2>
+      <div class="law-box">
+        <p><strong>Art. 29.</strong> Para atender ao princípio da proteção integral, é dever dos fornecedores [...] proceder à retirada de conteúdo que viola direitos de crianças e de adolescentes assim que forem comunicados do caráter ofensivo da publicação pela vítima, por seus representantes, pelo Ministério Público ou por entidades representativas de defesa dos direitos de crianças e de adolescentes, <em>independentemente de ordem judicial</em>.</p>
+        <p><strong>§ 1º</strong> Serão considerados violadores de direitos de crianças e de adolescentes os conteúdos referidos no art. 6º desta Lei.</p>
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 O que o Professor pode fazer — Passo a Passo</span>
+        <ol style="margin-left:20px; margin-top:8px; line-height:2.1;">
+          <li>Identificar o conteúdo violador (salvar URL, print ou outro registro)</li>
+          <li>Notificar a plataforma usando o mecanismo de denúncia disponível (obrigatório por lei)</li>
+          <li>Comunicar à direção da escola</li>
+          <li>Se a remoção não ocorrer, acionar o Ministério Público ou o Conselho Tutelar, que têm poder legal para exigir remoção (Art. 29)</li>
+          <li>Em casos de abuso sexual ou exploração, registrar também Boletim de Ocorrência</li>
+        </ol>
+      </div>
+
+      <h2>Direito de Contraditório — Art. 30</h2>
+      <div class="law-box">
+        <p><strong>Art. 30.</strong> No procedimento de retirada de conteúdo [...], os fornecedores [...] deverão observar o direito de contestação da decisão, assegurando ao usuário que havia publicado o conteúdo:</p>
+        <p class="inciso"><strong>I</strong> — a notificação sobre a retirada;</p>
+        <p class="inciso"><strong>II</strong> — o motivo e a fundamentação da retirada, informando se a identificação do conteúdo removido decorreu de análise humana ou automatizada;</p>
+        <p class="inciso"><strong>III</strong> — a possibilidade de recurso do usuário contra a medida;</p>
+      </div>
+
+      <div class="info-box">
+        <span class="box-label">ℹ️ Equilíbrio entre Proteção e Liberdade</span>
+        A lei é cuidadosa ao garantir que a remoção de conteúdo não seja um instrumento de censura. O Art. 30 garante ao autor do conteúdo o direito de saber por que foi removido, se por análise humana ou algorítmica, e de recorrer da decisão. Isso é um equilíbrio importante entre proteção das crianças e liberdade de expressão.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ SANÇÕES -->
+    <section id="sancoes" class="section">
+      <div class="art-tag">⚖️ Art. 35</div>
+      <h1>Sanções e Multas</h1>
+      <p class="lead">A lei tem dentes: as sanções são progressivas e as multas podem chegar a valores altíssimos para grandes plataformas.</p>
+
+      <h2>Penalidades Previstas — Art. 35</h2>
+      <div class="law-box">
+        <p><strong>Art. 35.</strong> Sem prejuízo das demais sanções cíveis, criminais ou administrativas, em caso de descumprimento das obrigações previstas nesta Lei [...], os infratores estarão sujeitos às seguintes penalidades:</p>
+        <p class="inciso"><strong>I</strong> — advertência, com prazo para adoção de medidas corretivas de até 30 dias;</p>
+        <p class="inciso"><strong>II</strong> — multa simples, de até 10% do faturamento do grupo econômico no Brasil no seu último exercício ou, na ausência de faturamento, multa de R$ 10,00 a R$ 1.000,00 por usuário cadastrado, limitada, no total, a R$ 50.000.000,00 por infração;</p>
+        <p class="inciso"><strong>III</strong> — suspensão temporária das atividades;</p>
+        <p class="inciso"><strong>IV</strong> — proibição de exercício das atividades.</p>
+        <p><strong>§ 2º</strong> No caso de empresa estrangeira, responderão solidariamente pelo pagamento da multa sua filial, sucursal, escritório ou estabelecimento situado no País.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">1ª Sanção</div>
+          <p>Advertência com 30 dias para corrigir. Aplicada pela autoridade administrativa.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💸</span>
+          <div class="card-title">2ª Sanção</div>
+          <p>Multa de até 10% do faturamento no Brasil, com teto de R$ 50 milhões por infração.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">3ª Sanção</div>
+          <p>Suspensão temporária das atividades no Brasil. Determinada pelo Poder Judiciário.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔴</span>
+          <div class="card-title">4ª Sanção</div>
+          <p>Proibição permanente de exercício das atividades. Determinada pelo Judiciário.</p>
+        </div>
+      </div>
+
+      <div class="law-box">
+        <p><strong>Art. 36-A.</strong> Os valores decorrentes das multas aplicadas com base nesta Lei serão destinados ao <em>Fundo Nacional para a Criança e o Adolescente</em> [...], a serem utilizados necessariamente em políticas e projetos que tenham por objetivo a proteção de crianças e de adolescentes.</p>
+      </div>
+
+      <div class="tip-box">
+        <span class="box-label">💡 As multas vão para onde?</span>
+        Os valores das multas são destinados ao Fundo Nacional para a Criança e o Adolescente (FNCA). Isso significa que o dinheiro das infrações das plataformas é reinvestido diretamente em políticas de proteção infanto-juvenil — fechando o ciclo de responsabilização.
+      </div>
+    </section>
+
+    <!-- ══════════════════════ VIGÊNCIA -->
+    <section id="vigencia" class="section">
+      <div class="art-tag">📅 Arts. 37–41A</div>
+      <h1>Vigência e Contexto</h1>
+      <p class="lead">A lei levou tempo para entrar em vigor — e esse processo é em si uma história importante de disputas regulatórias.</p>
+
+      <h2>A Vigência — Art. 41-A</h2>
+      <div class="law-box">
+        <p><strong>Art. 41-A.</strong> Esta Lei entra em vigor em 17 de março de 2026. <em>(Incluído pela Lei nº 15.352, de 2026)</em></p>
+      </div>
+
+      <div class="info-box">
+        <span class="box-label">ℹ️ Por que a vigência foi adiada?</span>
+        A lei foi publicada em 17 de setembro de 2025. Originalmente, entraria em vigor seis meses depois (março de 2026) — o que foi confirmado por Medida Provisória e depois pela Lei nº 15.352/2026. A vacatio legis (período entre publicação e vigência) permitiu às empresas de tecnologia se prepararem para cumprir as obrigações. Professores e famílias já podem, portanto, exigir cumprimento desde março de 2026.
+      </div>
+
+      <h2>Proibição de Vigilância Massiva — Art. 37, Parágrafo único</h2>
+      <div class="law-box">
+        <p><strong>Art. 37, Parágrafo único.</strong> A regulamentação não poderá, em nenhuma hipótese, impor, autorizar ou resultar na implantação de mecanismos de vigilância massiva, genérica ou indiscriminada, vedadas as práticas que comprometam os direitos fundamentais à liberdade de expressão, à privacidade, à proteção integral e ao tratamento diferenciado dos dados pessoais de crianças e de adolescentes.</p>
+      </div>
+
+      <div class="warn-box">
+        <span class="box-label">⚠️ Proteção de Duas Vias</span>
+        Esse artigo é uma salvaguarda importante: enquanto a lei exige proteção dos menores, ela também proíbe que a regulamentação resulte em vigilância massiva. O equilíbrio entre proteção e privacidade é uma tensão presente em toda a lei — e essa cláusula garante que a proteção não seja usada como pretexto para vigilância estatal de toda a população.
+      </div>
+
+      <h2>Adesivos em Embalagens — Art. 38</h2>
+      <div class="law-box">
+        <p><strong>Art. 38.</strong> As embalagens dos equipamentos eletrônicos de uso pessoal comercializados no País que permitam acesso à internet [...] deverão conter adesivo, em língua portuguesa, que informe aos pais ou responsáveis legais a necessidade de proteger crianças e adolescentes do acesso a sítios eletrônicos com conteúdo impróprio ou inadequado para essa faixa etária.</p>
+      </div>
+
+      <p>Isso significa que todo smartphone, tablet e computador vendido no Brasil deverá ter, na embalagem, um aviso sobre proteção infantil digital — similar ao que já existe em embalagens de cigarros. Uma medida simples mas com grande alcance de conscientização.</p>
+
+      <h2>Signatários da Lei</h2>
+      <p>Assinada em Brasília, 17 de setembro de 2025, pelo Presidente <strong>Luiz Inácio Lula da Silva</strong>, com os ministros: <em>Luis Manuel Rebelo Fernandes, Sonia Faustino Mendes, Macaé Maria Evaristo dos Santos, Fernando Haddad, Enrique Ricardo Lewandowski, Simone Nassar Tebet e Sidônio Cardoso Palmeira</em>.</p>
+    </section>
+
+    <!-- ══════════════════════ FAQ -->
+    <section id="faq" class="section">
+      <div class="art-tag">❓ Perguntas Frequentes</div>
+      <h1>Dúvidas do Cotidiano Escolar</h1>
+      <p class="lead">Respostas práticas fundamentadas no texto da Lei 15.211/2025 para as perguntas que chegam ao professor.</p>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Meu aluno de 14 anos tem conta no Instagram. Isso é ilegal pela nova lei?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          O Instagram tem idade mínima de 13 anos em seus termos. O que a Lei 15.211/2025 exige (Art. 24) é que contas de adolescentes de <em>até 16 anos</em> estejam vinculadas à conta de um responsável legal. Não é que a conta seja ilegal — mas a plataforma é obrigada a exigir essa vinculação. Se o perfil do aluno não está vinculado a nenhum responsável, a plataforma deve, quando identificar isso, suspender o acesso até que a vinculação seja feita.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Os jogos de Free Fire com "caixas" são proibidos agora?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          O Art. 20 proíbe as <em>loot boxes</em> em jogos de acesso provável por menores. Free Fire é um jogo classificado para maiores de 16 anos (PEGI 16) mas é amplamente acessado por menores. Se o jogo é considerado de "acesso provável por adolescentes" nos termos do Art. 1º da lei, as caixas de recompensa pagas devem ser removidas ou bloqueadas para esses usuários. A regulamentação ainda definirá os critérios exatos, mas a proibição é clara.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Um aluno me mostrou que está sofrendo cyberbullying. O que faço?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          A lei (Art. 29) permite que o Ministério Público exija remoção de conteúdo imediatamente, sem precisar de ordem judicial. Na escola, o professor deve: (1) registrar as evidências (prints, URLs), (2) comunicar à coordenação/direção, (3) acionar os responsáveis do aluno, (4) orientar a família a notificar a plataforma pelo mecanismo de denúncia disponível. Se o conteúdo envolver ameaças, violência ou abuso sexual, deve-se acionar o Conselho Tutelar e registrar B.O.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Posso usar o TikTok como ferramenta pedagógica em sala de aula?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          O uso pedagógico de plataformas digitais é uma decisão pedagógica que envolve a escola, não diretamente regulada por esta lei. Mas o professor deve estar ciente de que o TikTok (e plataformas similares) é um ambiente de "acesso provável por menores" sujeito a todas as obrigações da lei. Ao usar a plataforma pedagogicamente, é importante ter respaldo da direção e comunicar os responsáveis. Alternativas com maior controle pedagógico (YouTube Edu, plataformas escolares) podem ser preferíveis em alguns contextos.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          O que é "análise emocional" proibida no Art. 22?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          Análise emocional (ou "sentiment analysis" aplicada à expressão facial/comportamental) é uma tecnologia em que sistemas de IA analisam expressões faciais, padrões de digitação, comportamentos de scroll e outros dados para inferir o estado emocional do usuário em tempo real — e usam essa informação para exibir anúncios ou conteúdos no "momento mais receptivo". A lei proíbe expressamente esse uso com menores. É uma tecnologia perturbadora que merece debate em aula sobre privacidade e manipulação.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          A lei se aplica ao WhatsApp?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          Sim. O WhatsApp é um aplicativo de internet com "acesso provável por crianças e adolescentes" nos termos do Art. 1º. Portanto, suas obrigações de proteção, supervisão parental e prevenção de conteúdos nocivos se aplicam. O Art. 12 também obriga as lojas de apps (onde o WhatsApp é distribuído) a exigir consentimento parental para download por menores.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Meu aluno encontrou conteúdo pornográfico online. A lei prevê algo sobre isso?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          Sim. O Art. 9º obriga plataformas com conteúdo pornográfico a impedir o acesso por menores por meio de mecanismos confiáveis de verificação de idade — e veda a autodeclaração. O Art. 9º, §3º vai além: sites pornográficos devem impedir a própria criação de contas por menores. Se um aluno acessou conteúdo pornográfico em alguma plataforma, isso pode indicar que a plataforma não está cumprindo suas obrigações legais — o que pode ser reportado à autoridade competente.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          A lei cria alguma obrigação específica para as escolas?
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          Diretamente, não. A Lei 15.211/2025 regula principalmente empresas fornecedoras de tecnologia. Porém, ela reconhece (Art. 4º, inciso VIII) que a <em>promoção da educação digital</em> é um fundamento do uso seguro da tecnologia por crianças e adolescentes — o que cria um argumento legal para que escolas invistam em educação digital crítica. As obrigações diretas de formação escolar derivam do ECA original, da BNCC e das legislações estaduais.
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ CHECKLIST -->
+    <section id="checklist" class="section">
+      <div class="art-tag">✔️ Checklist</div>
+      <h1>Checklist do Professor</h1>
+      <p class="lead">Ações práticas para que o professor, a escola e as famílias estejam alinhados com o ECA Digital. Clique para marcar.</p>
+
+      <h2>📚 Formação e Conhecimento</h2>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Conhecer os principais pontos da Lei 15.211/2025, especialmente os direitos dos estudantes e as obrigações das plataformas</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Saber identificar e nomear conteúdos nocivos listados no Art. 6º (automutilação, cyberbullying, conteúdo pornográfico, aliciamento)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Compreender os conceitos de perfilamento (Art. 2º, V), loot box (Art. 2º, IV) e supervisão parental (Art. 2º, VIII) para usar em contexto pedagógico</span></li>
+      </ul>
+
+      <h2>🏫 Práticas em Sala de Aula</h2>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Incluir temas de segurança digital no planejamento: análise crítica de publicidade, algoritmos, privacidade e design manipulativo (dark patterns)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Trabalhar o conceito de "dados como moeda" e economia da atenção com os alunos, especialmente no Ensino Fundamental II e Médio</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Discutir a proibição de loot boxes (Art. 20) em contexto de jogos populares, relacionando a mecânicas de dependência e jogo de azar</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Usar o Art. 4º, inciso VIII (educação digital como fundamento legal) para justificar atividades de letramento digital no PPP e no planejamento</span></li>
+      </ul>
+
+      <h2>👨‍👩‍👧 Diálogo com as Famílias</h2>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Informar as famílias sobre a obrigação de vincular contas de menores de 16 anos a um responsável nas redes sociais (Art. 24)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Orientar pais sobre as ferramentas de supervisão parental disponíveis nas plataformas e o que a lei exige que elas ofereçam (Art. 17 e 18)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Comunicar que o consentimento dos pais é obrigatório para download de apps por menores (Art. 12, §2º)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Usar o Art. 3º, parágrafo único para fundamentar o dever de cuidado digital ativo dos pais — como argumento respaldado em lei</span></li>
+      </ul>
+
+      <h2>🚨 Situações de Risco</h2>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Saber que conteúdos de abuso sexual, aliciamento ou sequestro devem ser reportados às autoridades — e que as plataformas são obrigadas a remover e comunicar (Art. 27)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Conhecer o fluxo de acionamento: plataforma → direção → responsáveis → Conselho Tutelar/MP para casos de violação de direitos digitais</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Lembrar que a remoção de conteúdo pode ser exigida pelo MP sem necessidade de ordem judicial (Art. 29)</span></li>
+      </ul>
+    </section>
+
+    <!-- ══════════════════════ LEI INTEGRAL -->
+    <section id="lei-integral" class="section">
+      <div class="art-tag">📜 Texto Integral</div>
+      <h1>Lei nº 15.211/2025 — Texto Integral</h1>
+      <p class="lead">Transcrição fiel do texto publicado no Diário Oficial da União de 17 de setembro de 2025 (Edição extra).</p>
+
+      <div class="full-law-wrap">
+        <div class="lei-title">LEI Nº 15.211, DE 17 DE SETEMBRO DE 2025</div>
+        <div class="lei-ementa">Dispõe sobre a proteção de crianças e adolescentes em ambientes digitais (Estatuto Digital da Criança e do Adolescente).</div>
+
+        <p><strong>O PRESIDENTE DA REPÚBLICA</strong><br>
+        Faço saber que o Congresso Nacional decreta e eu sanciono a seguinte Lei:</p>
+
+        <div class="cap-title">CAPÍTULO I — DISPOSIÇÕES PRELIMINARES</div>
+
+        <p class="artigo">Art. 1º Esta Lei dispõe sobre a proteção de crianças e de adolescentes em ambientes digitais e aplica-se a todo produto ou serviço de tecnologia da informação direcionado a crianças e a adolescentes no País ou de acesso provável por eles, independentemente de sua localização, desenvolvimento, fabricação, oferta, comercialização e operação.</p>
+        <p class="paragrafo"><em>Parágrafo único.</em> Para os fins desta Lei, considera-se acesso provável por crianças e adolescentes as seguintes situações:</p>
+        <p class="inciso-full">I — suficiente probabilidade de uso e atratividade do produto ou serviço de tecnologia da informação por crianças e adolescentes;</p>
+        <p class="inciso-full">II — considerável facilidade ao acesso e utilização do produto ou serviço de tecnologia da informação por crianças e adolescentes; e</p>
+        <p class="inciso-full">III — significativo grau de risco à privacidade, à segurança ou ao desenvolvimento biopsicossocial de crianças e de adolescentes.</p>
+
+        <p class="artigo">Art. 2º Para os fins desta Lei, considera-se:</p>
+        <p class="inciso-full">I — produto ou serviço de tecnologia da informação: produto ou serviço fornecido a distância, por meio eletrônico e provido em virtude de requisição individual, tais como aplicações de internet, programas de computador, softwares, sistemas operacionais de terminais, lojas de aplicações de internet e jogos eletrônicos ou similares conectados à internet ou a outra rede de comunicações;</p>
+        <p class="inciso-full">II — produto ou serviço de monitoramento infantil: produto ou serviço de tecnologia da informação destinado ao acompanhamento, por pais ou responsáveis legais, das ações executadas por crianças e adolescentes em ambientes digitais;</p>
+        <p class="inciso-full">III — rede social: aplicação de internet que tem como principal finalidade o compartilhamento e a disseminação, pelos usuários, de opiniões e informações veiculadas por textos ou arquivos de imagens, sonoros ou audiovisuais, em uma única plataforma, por meio de contas conectadas ou acessíveis de forma articulada, permitida a conexão entre usuários;</p>
+        <p class="inciso-full">IV — caixa de recompensa: funcionalidade disponível em certos jogos eletrônicos que permite a aquisição, mediante pagamento, pelo jogador, de itens virtuais consumíveis ou de vantagens aleatórias, resgatáveis pelo jogador ou usuário, sem conhecimento prévio de seu conteúdo ou garantia de sua efetiva utilidade;</p>
+        <p class="inciso-full">V — perfilamento: qualquer forma de tratamento de dados pessoais, automatizada ou não, para avaliar certos aspectos de uma pessoa natural, com o objetivo de classificá-la em grupo ou perfil de modo a fazer inferências sobre seu comportamento, situação econômica, saúde, preferências pessoais, interesses, desejos de consumo, localização geográfica, deslocamentos, posições políticas ou outras características assemelhadas;</p>
+        <p class="inciso-full">VI — loja de aplicações de internet: aplicação de internet que distribui e facilita o download, para usuários de terminais, de aplicações de internet disponibilizadas ou tornadas acessíveis por meio de sua plataforma;</p>
+        <p class="inciso-full">VII — sistema operacional: software de sistema que controla as funções básicas de um hardware ou software e permite que aplicações de internet, programas de computador, aplicativos ou outros softwares sejam executados por meio dele;</p>
+        <p class="inciso-full">VIII — mecanismo de supervisão parental: conjunto de configurações, de ferramentas e de salvaguardas tecnológicas integradas a produtos ou serviços de tecnologia da informação que possibilitem aos pais ou responsáveis legais supervisionar, limitar e gerenciar o uso do serviço, o conteúdo acessado e o tratamento de dados pessoais realizado;</p>
+        <p class="inciso-full">IX — serviço com controle editorial: aplicação de internet que tem como finalidade principal a disponibilização de conteúdos previamente selecionados, sem o uso de meios automatizados de seleção, por agente econômico responsável;</p>
+        <p class="inciso-full">X — autoridade administrativa autônoma de proteção dos direitos de crianças e de adolescentes no ambiente digital: entidade da administração pública criada por lei, responsável por zelar pela aplicação desta Lei e fiscalizar o seu cumprimento em todo o território nacional;</p>
+        <p class="inciso-full">XI — monetização: remuneração direta ou indireta de usuário de aplicação de internet pela publicação, pela postagem, pela exibição, pela disponibilização, pela transmissão, pela divulgação ou pela distribuição de conteúdo; e</p>
+        <p class="inciso-full">XII — impulsionamento: ampliação artificial do alcance, da visibilidade ou da priorização de conteúdo mediante pagamento pecuniário ou valor estimável em dinheiro.</p>
+
+        <p class="artigo">Art. 3º Os produtos ou serviços de tecnologia da informação [...] devem garantir a proteção prioritária desses usuários, ter como parâmetro o seu melhor interesse e contar com medidas adequadas e proporcionais para assegurar um nível elevado de privacidade, de proteção de dados e de segurança.</p>
+        <p class="paragrafo"><em>Parágrafo único.</em> A criança e o adolescente têm o direito de ser educados, orientados e acompanhados por seus pais ou responsáveis legais quanto ao uso da internet e à sua experiência digital, e a estes incumbe o exercício do cuidado ativo e contínuo, por meio da utilização de ferramentas de supervisão parental adequadas à idade e ao estágio de desenvolvimento da criança e do adolescente.</p>
+
+        <div class="cap-title">CAPÍTULO II — DOS PRODUTOS E SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO</div>
+
+        <p class="artigo">Art. 4º A utilização de produtos ou serviços de tecnologia da informação por crianças e adolescentes tem como fundamentos: I — a garantia de sua proteção integral; II — a prevalência absoluta de seus interesses; III — a condição peculiar de pessoa em desenvolvimento biopsicossocial; IV — a segurança contra intimidação, exploração, abuso, ameaça e outras formas de violência; V — o respeito à autonomia e ao desenvolvimento progressivo do indivíduo; VI — a proteção contra a exploração comercial; VII — a observância dos princípios estabelecidos no Estatuto da Pessoa com Deficiência; VIII — a promoção da educação digital, com foco no desenvolvimento da cidadania e do senso crítico para o uso seguro e responsável da tecnologia; e IX — a transparência e a responsabilidade no tratamento de dados pessoais de crianças e de adolescentes.</p>
+
+        <p class="artigo">Art. 5º Os produtos ou serviços de tecnologia da informação [...] deverão observar os deveres de prevenção, de proteção, de informação e de segurança previstos neste Capítulo.</p>
+        <p class="paragrafo">§ 2º Para os fins desta Lei, considera-se como expressão do melhor interesse da criança e do adolescente a proteção de sua privacidade, segurança, saúde mental e física, acesso à informação, liberdade de participação na sociedade, acesso significativo às tecnologias digitais e bem-estar.</p>
+
+        <p class="artigo">Art. 6º Os fornecedores [...] deverão tomar medidas razoáveis desde a concepção [...], com o objetivo de prevenir e mitigar riscos de acesso, exposição, recomendação ou facilitação de contato com os seguintes conteúdos: I — exploração e abuso sexual; II — violência física, intimidação sistemática virtual e assédio; III — indução a práticas que levem a danos à saúde física ou mental, tais como automutilação e suicídio; IV — promoção e comercialização de jogos de azar, apostas, produtos de tabaco, bebidas alcoólicas, narcóticos; V — práticas publicitárias predatórias, injustas ou enganosas; VI — conteúdo pornográfico.</p>
+
+        <p class="artigo">Art. 7º Os fornecedores [...] deverão, desde a concepção de seus produtos e serviços, garantir, por padrão, a configuração no modelo mais protetivo disponível em relação à privacidade e à proteção de dados pessoais.</p>
+
+        <p class="artigo">Art. 8º Os fornecedores [...] deverão: I — realizar gerenciamento de riscos; II — realizar avaliação do conteúdo por faixa etária; III — oferecer sistemas para impedir que crianças encontrem conteúdos ilegais e pornográficos; IV — desenvolver e adotar por padrão configurações que evitem o uso compulsivo por crianças e adolescentes; V — informar extensivamente sobre a faixa etária indicada para o produto.</p>
+
+        <div class="cap-title">CAPÍTULO III — DA VEDAÇÃO AO ACESSO DE CRIANÇAS E DE ADOLESCENTES A CONTEÚDOS E SERVIÇOS IMPRÓPRIOS</div>
+
+        <p class="artigo">Art. 9º Os fornecedores [...] que disponibilizarem conteúdo, produto ou serviço cuja oferta ou acesso seja impróprio, inadequado ou proibido para menores de 18 anos de idade deverão adotar medidas eficazes para impedir o seu acesso por crianças e adolescentes.</p>
+        <p class="paragrafo">§ 1º [...] deverão ser adotados mecanismos confiáveis de verificação de idade a cada acesso do usuário ao conteúdo [...], vedada a autodeclaração.</p>
+        <p class="paragrafo">§ 3º Os provedores de aplicações de internet que disponibilizarem conteúdo pornográfico deverão impedir a criação de contas ou de perfis por crianças e adolescentes no âmbito de seus serviços.</p>
+
+        <div class="cap-title">CAPÍTULO IV — DOS MECANISMOS DE AFERIÇÃO DE IDADE</div>
+
+        <p class="artigo">Art. 10. Os fornecedores [...] deverão adotar mecanismos para proporcionar experiências adequadas à idade, [...] respeitadas a autonomia progressiva e a diversidade de contextos socioeconômicos brasileiros.</p>
+
+        <p class="artigo">Art. 12. Os provedores de lojas de aplicações de internet e de sistemas operacionais de terminais deverão: I — tomar medidas proporcionais, auditáveis e tecnicamente seguras para aferir a idade ou a faixa etária dos usuários; II — permitir que os pais configurem mecanismos de supervisão parental; III — possibilitar o fornecimento de sinal de idade por API segura.</p>
+        <p class="paragrafo">§ 2º A autorização para download de aplicativos por crianças e adolescentes dependerá de consentimento livre e informado dos pais ou responsáveis legais [...], vedada a presunção de autorização na hipótese de ausência de manifestação dos pais.</p>
+
+        <p class="artigo">Art. 13. Os dados coletados para a verificação de idade [...] poderão ser utilizados unicamente para essa finalidade, vedado seu tratamento para qualquer outro propósito.</p>
+
+        <div class="cap-title">CAPÍTULO V — DA SUPERVISÃO PARENTAL</div>
+
+        <p class="artigo">Art. 16. Os fornecedores [...] deverão disponibilizar a pais, responsáveis legais, crianças e adolescentes, com acesso de forma independente da aquisição do produto, informações sobre os riscos e as medidas de segurança adotadas para esse público.</p>
+
+        <p class="artigo">Art. 17. Os fornecedores [...] deverão: I — disponibilizar configurações e ferramentas acessíveis e fáceis de usar que apoiem a supervisão parental; II — fornecer informações em local de fácil acesso; III — exibir aviso claro e visível quando as ferramentas de supervisão parental estiverem em vigor; IV — oferecer funcionalidades que permitam limitar e monitorar o tempo de uso.</p>
+        <p class="paragrafo">§ 4º As configurações-padrão das ferramentas de supervisão parental deverão adotar o mais alto nível de proteção disponível, assegurados, no mínimo: I — restrição à comunicação com usuários não autorizados; II — limitação de recursos de uso compulsivo, como reprodução automática e notificações excessivas; III — oferta de ferramentas para acompanhamento do uso saudável; IV — interfaces de visualização e limitação do tempo de uso; V — controle sobre sistemas de recomendação; VI — restrição ao compartilhamento de geolocalização; VII — promoção da educação digital midiática; VIII — revisão regular das ferramentas de IA; IX — recursos de suporte emocional e bem-estar.</p>
+
+        <p class="artigo">Art. 18. As ferramentas de supervisão parental deverão permitir aos pais e responsáveis legais: I — visualizar, configurar e gerenciar as opções de conta e privacidade; II — restringir compras e transações financeiras; III — identificar os perfis de adultos com os quais a criança se comunica; IV — acessar métricas consolidadas do tempo total de uso; V — ativar ou desativar salvaguardas; VI — dispor de informações em língua portuguesa.</p>
+        <p class="paragrafo">§ 2º É vedado ao fornecedor projetar, modificar ou manipular interfaces com o objetivo ou efeito de comprometer a autonomia, a tomada de decisão ou a escolha do usuário, especialmente se resultar no enfraquecimento das ferramentas de supervisão parental ou das salvaguardas.</p>
+
+        <div class="cap-title">CAPÍTULO VII — DOS JOGOS ELETRÔNICOS</div>
+
+        <p class="artigo">Art. 20. São vedadas as caixas de recompensa (loot boxes) oferecidas em jogos eletrônicos direcionados a crianças e a adolescentes ou de acesso provável por eles, nos termos da respectiva classificação indicativa.</p>
+
+        <p class="artigo">Art. 21. Os jogos eletrônicos [...] que incluam funcionalidades de interação entre usuários por meio de mensagens de texto, áudio ou vídeo [...] deverão, por padrão, limitar as funcionalidades de interação a usuários, de modo a assegurar o consentimento dos pais ou responsáveis legais.</p>
+
+        <div class="cap-title">CAPÍTULO VIII — DA PUBLICIDADE EM MEIO DIGITAL</div>
+
+        <p class="artigo">Art. 22. [...] É vedada a utilização de técnicas de perfilamento para direcionamento de publicidade comercial a crianças e a adolescentes, bem como o emprego de análise emocional, de realidade aumentada, de realidade estendida e de realidade virtual para esse fim.</p>
+
+        <p class="artigo">Art. 23. São vedados aos provedores de aplicações de internet a monetização e o impulsionamento de conteúdos que retratem crianças e adolescentes de forma erotizada ou sexualmente sugestiva ou em contexto próprio do universo sexual adulto.</p>
+
+        <div class="cap-title">CAPÍTULO IX — DAS REDES SOCIAIS</div>
+
+        <p class="artigo">Art. 24. [...] os provedores [...] deverão garantir que usuários ou contas de crianças e de adolescentes de até 16 (dezesseis) anos de idade estejam vinculados ao usuário ou à conta de um de seus responsáveis legais.</p>
+        <p class="paragrafo">§ 4º Diante de fundados indícios de que a conta é operada por criança ou adolescente em desconformidade com os requisitos de idade mínima previstos na legislação, os provedores de redes sociais deverão suspender o acesso do usuário [...].</p>
+        <p class="paragrafo">§ 5º Na ausência de usuário ou conta dos responsáveis legais, os provedores deverão vedar a possibilidade de alteração das configurações de supervisão parental da conta para um nível menor de proteção.</p>
+
+        <p class="artigo">Art. 26. É vedada a criação de perfis comportamentais de usuários crianças e adolescentes a partir da coleta e do tratamento de seus dados pessoais [...] para fins de direcionamento de publicidade comercial.</p>
+
+        <div class="cap-title">CAPÍTULO X — DA PREVENÇÃO E COMBATE A VIOLAÇÕES GRAVES</div>
+
+        <p class="artigo">Art. 27. Os fornecedores [...] deverão remover e comunicar os conteúdos de aparente exploração, de abuso sexual, de sequestro e de aliciamento detectados em seus produtos ou serviços [...] às autoridades nacionais e internacionais competentes.</p>
+
+        <div class="cap-title">CAPÍTULO XI — DO REPORTE DE VIOLAÇÕES</div>
+
+        <p class="artigo">Art. 29. [...] é dever dos fornecedores [...] proceder à retirada de conteúdo que viola direitos de crianças e de adolescentes assim que forem comunicados do caráter ofensivo da publicação pela vítima, por seus representantes, pelo Ministério Público ou por entidades representativas de defesa dos direitos de crianças e de adolescentes, independentemente de ordem judicial.</p>
+
+        <div class="cap-title">CAPÍTULO XV — DAS SANÇÕES</div>
+
+        <p class="artigo">Art. 35. [...] os infratores estarão sujeitos às seguintes penalidades: I — advertência, com prazo para adoção de medidas corretivas de até 30 dias; II — multa simples, de até 10% do faturamento do grupo econômico no Brasil no seu último exercício [...], limitada, no total, a R$ 50.000.000,00 por infração; III — suspensão temporária das atividades; IV — proibição de exercício das atividades.</p>
+
+        <div class="cap-title">CAPÍTULO XVI — DISPOSIÇÕES FINAIS</div>
+
+        <p class="artigo">Art. 37, Parágrafo único. A regulamentação não poderá, em nenhuma hipótese, impor, autorizar ou resultar na implantação de mecanismos de vigilância massiva, genérica ou indiscriminada, vedadas as práticas que comprometam os direitos fundamentais à liberdade de expressão, à privacidade, à proteção integral e ao tratamento diferenciado dos dados pessoais de crianças e de adolescentes.</p>
+
+        <p class="artigo">Art. 38. As embalagens dos equipamentos eletrônicos de uso pessoal comercializados no País que permitam acesso à internet [...] deverão conter adesivo, em língua portuguesa, que informe aos pais ou responsáveis legais a necessidade de proteger crianças e adolescentes do acesso a sítios eletrônicos com conteúdo impróprio.</p>
+
+        <p class="artigo">Art. 41-A. Esta Lei entra em vigor em 17 de março de 2026. (Incluído pela Lei nº 15.352, de 2026)</p>
+
+        <p style="margin-top: 24px;">Brasília, 17 de setembro de 2025; 204º da Independência e 137º da República.</p>
+        <p style="margin-top: 10px; font-style: italic;">
+          LUIZ INÁCIO LULA DA SILVA<br>
+          Luis Manuel Rebelo Fernandes · Sonia Faustino Mendes · Macaé Maria Evaristo dos Santos · Fernando Haddad · Enrique Ricardo Lewandowski · Simone Nassar Tebet · Sidônio Cardoso Palmeira
+        </p>
+        <p style="margin-top: 18px; font-size: 12.5px; color: #888; font-style: italic;">
+          Este texto não substitui o publicado no DOU de 17.9.2025 — Edição extra.<br>
+          Fonte oficial: <a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/L15211.htm" target="_blank" style="color: var(--accent);">www.planalto.gov.br</a>
+        </p>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add('active');
+    document.querySelectorAll('nav a').forEach(a => {
+      if (a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + id + "'")) {
+        a.classList.add('active');
+      }
+    });
+    if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleFAQ(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
